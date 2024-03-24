@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Level Monitoring</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+  }
+  #container {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #tank {
+    width: 200px;
+    height: 200px;
+    background-color: #ccc;
+    border: 2px solid #999;
+    position: relative;
+    margin: 20px auto;
+  }
+  #water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    height: 0%;
+    transition: height 0.5s ease; /* Smooth transition */
+  }
+  #distance {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  #calibrationMessage {
+    font-size: 16px;
+    color: green;
+  }
+  #confirmButton {
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <h2>Water Tank</h2>
+  <div id="tank">
+    <div id="water"></div>
+  </div>
+  <p id="distance">Water level: <span id="percentageValue">Loading...</span></p>
+  <p id="calibrationMessage"></p> <!-- Paragraph element for displaying calibration message -->
+  <button onclick="calibrate()">Calibrate</button>
+<button id="confirmButton" onclick="confirmCalibration()" style="margin-top: 10px; display: none; margin-left: auto; margin-right: auto;">OK</button>
+
+</div>
+
+<script>
+var distance = 0;
+var increment = true;
+var maxDistance = 200; // Full threshold
+var minDistance = 0;   // Empty threshold
+var calibrationMode = false;
+var calibratingEmpty = false;
+var emptyLevel;
+var fullLevel;
+
+function updateWaterLevel() {
+  // Calculate the percentage dynamically based on the distance between min and max thresholds
+  var percentage = ((distance - minDistance) / (maxDistance - minDistance)) * 100;
+
+  // Update water level display
+  var waterElement = document.getElementById("water");
+  waterElement.style.height = percentage + "%";
+
+  // Update water level text
+  document.getElementById("percentageValue").innerText = percentage.toFixed(2) + "%";
+
+  // Increment or decrement the distance based on current state
+  if (increment) {
+    distance += 10;
+    if (distance >= maxDistance) {
+      increment = false; // Change direction when reaching full threshold
+    }
+  } else {
+    distance -= 10;
+    if (distance <= minDistance) {
+      increment = true; // Change direction when reaching empty threshold
+    }
+  }
+}
+
+// Update water level periodically
+setInterval(updateWaterLevel, 1000); // Update every second
+
+function calibrate() {
+  calibrationMode = true;
+  calibratingEmpty = !calibratingEmpty;
+  var confirmationMessage;
+
+  if (calibratingEmpty) {
+    confirmationMessage = "Calibrating empty threshold at: " + parseFloat(document.getElementById("percentageValue").innerText) + "%. Press OK to save.";
+  } else {
+    confirmationMessage = "Calibrating full threshold at: " + parseFloat(document.getElementById("percentageValue").innerText) + "%. Press OK to save.";
+  }
+
+  document.getElementById("calibrationMessage").innerText = confirmationMessage;
+  document.getElementById("confirmButton").style.display = "block";
+}
+
+function confirmCalibration() {
+  document.getElementById("confirmButton").style.display = "none";
+  calibrationMode = false;
+
+  // Save calibration values
+  if (calibratingEmpty) {
+    emptyLevel = parseFloat(document.getElementById("percentageValue").innerText);
+  } else {
+    fullLevel = parseFloat(document.getElementById("percentageValue").innerText);
+  }
+
+  // Display confirmation message
+  document.getElementById("calibrationMessage").innerText = "Calibration saved.";
+}
+</script>
+</body>
+</html>
+
