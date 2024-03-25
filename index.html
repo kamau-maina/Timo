@@ -9,21 +9,6 @@
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
   }
-  #container {
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  #tank {
-    width: 200px;
-    height: 200px;
-    background-color: #ccc;
-    border: 2px solid #999;
-    position: relative;
-    margin: 20px auto;
-  }
-  #water {
-    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -31,6 +16,26 @@
     height: 0%;
     transition: height 0.5s ease; /* Smooth transition */
   }
+  #container {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex; /* Use flexbox layout */
+  justify-content: space-between; /* Distribute items along the main axis */
+}
+
+#tank {
+  width: 200px;
+  height: 200px;
+  background-color: #ccc;
+  border: 2px solid #999;
+  position: relative;
+}
+
+#averageUsage {
+  margin-top: 10px; /* Add some space between the tank and the average usage text */
+}
+
   #distance {
     font-size: 24px;
     font-weight: bold;
@@ -40,12 +45,7 @@
     font-size: 16px;
     color: green;
   }
-  #averageUsage {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 20px; /* Add some space between the tank and the average usage text */
-    float: right;
-  }
+  
   #confirmButton {
     margin-top: 10px;
   }
