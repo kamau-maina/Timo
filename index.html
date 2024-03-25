@@ -52,12 +52,19 @@
 </style>
 </head>
 <body>
-<div id="container">
-  <h2>Water Tank</h2>
-  <div id="tank">
-    <div id="water"></div>
   </div>
-  <p id="distance">Water level: <span id="percentageValue">Loading...</span></p>
+  <div id="container">
+  <div>
+    <h2>Water Tank</h2>
+    <div id="tank">
+      <div id="water"></div>
+    </div>
+    <p id="distance">Water level: <span id="percentageValue">Loading...</span></p>
+    <p id="pumpStatus">Pump status: OFF</p>
+  </div>
+  <div id="averageUsage">Average daily usage: <span id="usageValue">0%</span></div>
+</div>
+
   <p id="calibrationMessage"></p> <!-- Paragraph element for displaying calibration message -->
   <button onclick="calibrate()">Calibrate</button>
 <button id="confirmButton" onclick="confirmCalibration()" style="margin-top: 10px; display: none; margin-left: auto; margin-right: auto;">OK</button>
