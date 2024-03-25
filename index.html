@@ -23,15 +23,6 @@
   display: flex; /* Use flexbox layout */
   justify-content: space-between; /* Distribute items along the main axis */
 }
-#water {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #007bff;
-    height: 0%;
-    transition: height 0.5s ease;
-  }
 #tank {
   width: 200px;
   height: 200px;
@@ -43,7 +34,15 @@
 #averageUsage {
   margin-top: 10px; /* Add some space between the tank and the average usage text */
 }
-
+ #water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    height: 0%;
+    transition: height 0.5s ease; /* Smooth transition */
+  }
   #distance {
     font-size: 24px;
     font-weight: bold;
@@ -57,6 +56,11 @@
   #confirmButton {
     margin-top: 10px;
   }
+#pumpStatus {
+    font-size: 16px;
+    color: blue;
+  }
+
 </style>
 </head>
 <body>
@@ -74,6 +78,7 @@
 
   <p id="calibrationMessage"></p> <!-- Paragraph element for displaying calibration message -->
   <button onclick="calibrate()">Calibrate</button>
+  <button style="display: none;" id="confirmButton" onclick="confirmCalibration()">OK</button>
 <button id="confirmButton" onclick="confirmCalibration()" style="margin-top: 10px; display: none; margin-left: auto; margin-right: auto;">OK</button>
 
 </div>
